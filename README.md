@@ -1,3 +1,3 @@
 # nestjs-from-scratch
 
-In this tiny project, I had tried to build hello world sort of server using NestJs without using nest-cli. This helps clearing our basic understanding, the core modules of nestjs and lastly how can you setup the nest server with bare minimum stuff. 
+In this repository, we are going to build different NestJs projects. Each of which corresponds to one directory at root level. The main intention to get fundamental understanding of the core NestJs as well as get hands-on experience with advance concepts in NestJs.
