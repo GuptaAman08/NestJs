@@ -9,7 +9,7 @@ import {
   Query,
   Delete,
   Session,
-  UseInterceptors,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -19,11 +19,10 @@ import { Serialize } from '../interceptors/serializer.interceptor';
 import { UserDto } from './dto/user.dto';
 import { User } from './user.entity';
 import { CurrentUser } from './decorators/current-user.decorator';
-import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
+import { AuthGuard } from '../guards/auth.guard';
 
 @Controller('auth')
 @Serialize(UserDto)
-@UseInterceptors(CurrentUserInterceptor)
 export class UsersController {
   constructor(
     private userService: UsersService,
@@ -31,6 +30,7 @@ export class UsersController {
   ) {}
 
   @Get('whoami')
+  @UseGuards(AuthGuard)
   whoami(@CurrentUser() user: User) {
     return user;
   }
