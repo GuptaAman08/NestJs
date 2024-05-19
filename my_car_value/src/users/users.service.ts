@@ -14,6 +14,11 @@ export class UsersService {
   }
 
   async findOne(id: number) {
+    if (!id) {
+      // adding this check since when id is null, the sqlite:db fetched the first row by default
+      throw new NotFoundException('No such signed in user');
+    }
+
     const user = await this.repo.findOne({ where: { id } });
     if (!user) {
       throw new NotFoundException('User not found');
