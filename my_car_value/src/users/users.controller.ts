@@ -10,6 +10,7 @@ import {
   Delete,
   Session,
   UseGuards,
+  NotFoundException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -57,7 +58,13 @@ export class UsersController {
 
   @Get('/:id')
   findUser(@Param('id', ParseIntPipe) id: number) {
-    return this.userService.findOne(id);
+    const user = this.userService.findOne(id);
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return user;
   }
 
   @Get('')
